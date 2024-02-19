@@ -1,66 +1,53 @@
 import socket
+import datetime
 
 def receive_udp_message(ip, port):
-    # UDP 소켓 생성
+    # Create UDP socket
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-    # 주소와 포트에 바인딩
+    # Binding ip and port to address
     server_address = (ip, port)
     sock.bind(server_address)
 
-    print("UDP 서버가 시작되었습니다.")
+    print("UDP Opened.")
+    with open("logfile.txt", "a") as logfile:
+            logfile.write(f"{current_time} - Connected.\n")
 
     try:
-        # 메시지 수신 대기
+        # waiting
         while True:
-            print("\n대기 중...")
-            data, address = sock.recvfrom(4096)  # 데이터를 받을 때까지 대기
+            print("\nwaiting...")
+            data, address = sock.recvfrom(4096)  
 
-            print(f"수신된 메시지: {data.decode()}")
-
+            
+            print(f"received message: {data.decode()}")
+            received_message = data.decode()
+            parts = received_message.split()
+            if len(parts) == 2:
+                command, file_name = parts
+                if command == "-o":
+                    with open("logfile.txt", "a") as logfile:
+                        logfile.write(f"{current_time} - {file_name} opened.\n")
+                elif command == "-c":
+                    with open("logfile.txt", "a") as logfile:
+                        logfile.write(f"{current_time} - {file_name} closed.\n")
+                elif command == "-r":
+                    with open("logfile.txt", "a") as logfile:
+                        logfile.write(f"{current_time} - {file_name} is open for read.\n")
+                elif command == "-w":
+                    with open("logfile.txt", "a") as logfile:
+                        logfile.write(f"{current_time} - {file_name} modified.\n")
+                else :
+                    with open("logfile.txt", "a") as logfile:
+                        logfile.write(f"{current_time} - Wrong command is sent.\n")
     finally:
         sock.close()
 
 if __name__ == "__main__":
-    ip = '127.0.0.1'  # 클라이언트에서 보낸 IP 주소
-    port = 20001  # 클라이언트에서 보낸 포트 번호
+    ip = '10.169.92.221'  # the ip address which client sent
+    port = 24  # the port number which client sent
 
     receive_udp_message(ip, port)
 
 
-
-# import socket
-
-# localIP     = "10.169.92.221"
-# localPort   = 20001
-# bufferSize  = 1024
-
-# msgFromServer       = "Hello UDP Client, This is the Server talking."
-# bytesToSend         = str.encode(msgFromServer)
-
-# # Create a datagram socket
-# UDPServerSocket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
-
-# # Bind to address and ip
-# UDPServerSocket.bind((localIP, localPort))
-
-# print("UDP server up and listening")
-
-# # Listen for incoming datagrams
-
-# while(True):
-
-#     bytesAddressPair = UDPServerSocket.recvfrom(bufferSize)
-
-#     message = bytesAddressPair[0]
-
-#     address = bytesAddressPair[1]
-
-#     clientMsg = "Message from Client:{}".format(message)
-#     clientIP  = "Client IP Address:{}".format(address)
-    
-#     print(clientMsg)
-#     print(clientIP)
-
-#     # Sending a reply to client
-#     UDPServerSocket.sendto(bytesToSend, address)

@@ -1,0 +1,13 @@
+2024-02-19 14:16:47 - example.txt opened.
+2024-02-19 14:18:14 - example.txt opened.
+2024-02-19 14:20:21 - example.txt opened.
+2024-02-19 14:24:16 - Connected.
+2024-02-19 14:25:35 - Connected.
+2024-02-19 14:25:35 - Wrong command is sent.
+2024-02-19 14:25:35 - example.txt opened.
+2024-02-19 14:25:35 - example.txt is open for read.
+2024-02-19 14:25:35 - example.txt modified.
+2024-02-19 14:25:35 - example.txt closed.
+2024-02-19 14:26:58 - Connected.
+2024-02-19 14:26:58 - example.txt closed.
+2024-02-19 14:32:30 - Connected.
