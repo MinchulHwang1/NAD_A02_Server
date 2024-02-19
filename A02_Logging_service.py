@@ -1,35 +1,66 @@
 import socket
 
-localIP     = "10.169.92.221"
-localPort   = 20001
-bufferSize  = 1024
+def receive_udp_message(ip, port):
+    # UDP 소켓 생성
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-msgFromServer       = "Hello UDP Client, This is the Server talking."
-bytesToSend         = str.encode(msgFromServer)
+    # 주소와 포트에 바인딩
+    server_address = (ip, port)
+    sock.bind(server_address)
 
-# Create a datagram socket
-UDPServerSocket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
+    print("UDP 서버가 시작되었습니다.")
 
-# Bind to address and ip
-UDPServerSocket.bind((localIP, localPort))
+    try:
+        # 메시지 수신 대기
+        while True:
+            print("\n대기 중...")
+            data, address = sock.recvfrom(4096)  # 데이터를 받을 때까지 대기
 
-print("UDP server up and listening")
+            print(f"수신된 메시지: {data.decode()}")
 
-# Listen for incoming datagrams
+    finally:
+        sock.close()
 
-while(True):
+if __name__ == "__main__":
+    ip = '127.0.0.1'  # 클라이언트에서 보낸 IP 주소
+    port = 20001  # 클라이언트에서 보낸 포트 번호
 
-    bytesAddressPair = UDPServerSocket.recvfrom(bufferSize)
+    receive_udp_message(ip, port)
 
-    message = bytesAddressPair[0]
 
-    address = bytesAddressPair[1]
 
-    clientMsg = "Message from Client:{}".format(message)
-    clientIP  = "Client IP Address:{}".format(address)
+# import socket
+
+# localIP     = "10.169.92.221"
+# localPort   = 20001
+# bufferSize  = 1024
+
+# msgFromServer       = "Hello UDP Client, This is the Server talking."
+# bytesToSend         = str.encode(msgFromServer)
+
+# # Create a datagram socket
+# UDPServerSocket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
+
+# # Bind to address and ip
+# UDPServerSocket.bind((localIP, localPort))
+
+# print("UDP server up and listening")
+
+# # Listen for incoming datagrams
+
+# while(True):
+
+#     bytesAddressPair = UDPServerSocket.recvfrom(bufferSize)
+
+#     message = bytesAddressPair[0]
+
+#     address = bytesAddressPair[1]
+
+#     clientMsg = "Message from Client:{}".format(message)
+#     clientIP  = "Client IP Address:{}".format(address)
     
-    print(clientMsg)
-    print(clientIP)
+#     print(clientMsg)
+#     print(clientIP)
 
-    # Sending a reply to client
-    UDPServerSocket.sendto(bytesToSend, address)
+#     # Sending a reply to client
+#     UDPServerSocket.sendto(bytesToSend, address)
