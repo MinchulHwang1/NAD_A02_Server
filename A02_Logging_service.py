@@ -6,10 +6,6 @@ def clientHandler(connection, address):
     current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     connected_flag = False
 
-    # Logging
-    # with open("logfile.txt", "a") as logfile:
-    #     logfile.write(f"{current_time} - {address} connected.\n")
-
     try:
         
         while True:
@@ -23,11 +19,6 @@ def clientHandler(connection, address):
             if len(parts) == 3:
                 number, command, file_name = parts
 
-                # if not connected_flag:
-                #     with open("logfile.txt", "a") as logfile:
-                #         logfile.write(f"{current_time} - {number} is connected.\n")
-                #     connected_flag = True
-                
                 with open("logfile.txt", "a") as logfile:
                     if command == "-o":
                         logfile.write(f"{current_time} - {number} - {file_name} opened.\n")
@@ -45,7 +36,6 @@ def clientHandler(connection, address):
                         logfile.write(f"{current_time} - {number}: Wrong command is sent.\n")
     finally:
         print(f"Connection from {address} (Client {number}) closed.")
-        #connection.close()
 
 
 def receive_TCP_message(ip, port):
