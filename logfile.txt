@@ -6,3 +6,10 @@
 2024-02-21 22:47:16 - 1708573617513 is disconnected.
 2024-02-21 22:47:19 - 1708573614291 is disconnected.
 2024-02-21 22:47:22 - 1708573613252 is disconnected.
+2024-02-22 16:58:50 - Logging service started. Waiting for connections...
+2024-02-22 16:59:53 - Client connected.
+2024-02-22 16:59:53 - 1708639167619 - example.txt opened.
+2024-02-22 17:00:15 - 1708639181656 - example.txt closed.
+2024-02-22 17:00:28 - 1708639167619 is disconnected.
+2024-02-22 17:00:32 - 1708639181656 is disconnected.
+2024-02-23 13:16:09 - Logging service started. Waiting for connections...
